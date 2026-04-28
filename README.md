@@ -10,7 +10,13 @@
 
 ## Конфиг
 
-Переменные окружения:
+Скопируйте шаблон:
+
+```bash
+cp .env.example .env
+```
+
+Переменные в `.env`:
 
 - `AGENT_PORT` (по умолчанию `9091`)
 - `AGENT_ACCESS_TOKEN` (опционально, если задан — нужен `Authorization: Bearer ...`)
@@ -26,6 +32,7 @@
 
 ```bash
 go mod tidy
+set -a && source .env && set +a
 go run ./cmd
 ```
 
