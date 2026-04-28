@@ -1,0 +1,7 @@
+.git
+.gitignore
+.cursor
+.vscode
+README.md
+scripts
+*.log

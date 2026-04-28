@@ -36,6 +36,20 @@ set -a && source .env && set +a
 go run ./cmd
 ```
 
+## Docker запуск
+
+```bash
+cp .env.example .env
+docker compose up --build -d
+docker compose ps
+```
+
+Логи:
+
+```bash
+docker compose logs -f agent
+```
+
 Healthcheck:
 
 ```bash
