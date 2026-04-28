@@ -56,6 +56,8 @@ func (c *checker) CheckProvider(ctx context.Context, req model.ProviderCheckRequ
 		slog.String("job_id", req.JobID),
 		slog.String("provider_pubkey", req.Provider.PublicKey),
 	)
+	start := time.Now()
+	log.Debug("checker started", slog.Int("contracts_count", len(req.Contracts)))
 
 	gw := adnl.NewGateway(c.prv)
 	defer gw.Close()
@@ -75,6 +77,19 @@ func (c *checker) CheckProvider(ctx context.Context, req model.ProviderCheckRequ
 		}
 		return true
 	})
+
+	valid := 0
+	for _, item := range result {
+		if item.Reason == constants.ValidStorageProof {
+			valid++
+		}
+	}
+	log.Debug(
+		"checker finished",
+		slog.Int("result_count", len(result)),
+		slog.Int("valid_count", valid),
+		slog.String("duration", time.Since(start).String()),
+	)
 
 	return result, nil
 }
